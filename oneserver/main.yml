@@ -1,0 +1,56 @@
+# This file is part of roblesnotes-deploy
+# Copyright (C) 2017  Felix Robles Elvira <felrobelv@gmail.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+---
+- name: OneServer, remove nginx default
+  sudo: true
+  file: path=/etc/nginx/sites-enabled/default, state=absent
+
+- name: OneServer, nginx configuration files
+  sudo: true
+  template:
+    src: {{ item.src }}
+    dest: {{ item.dest }}
+    owner: root
+    mode: 0644
+  with_items:
+    - src: oneserver/templates/oneserver.conf
+      dest: /etc/nginx/conf.d/oneserver.conf
+
+    - src: oneserver/templates/nginx.conf
+      dest: /etc/nginx/nginx.conf
+
+    - src: oneserver/templates/cloudflare.conf
+      dest: /etc/nginx/cloudflare.conf
+
+    - src: oneserver/templates/base_secure.conf
+      dest: /etc/nginx/base_secure.conf
+
+    - src: oneserver/templates/secure.conf
+      dest: /etc/nginx/secure.conf
+
+    - src: oneserver/templates/internal_secure.conf
+      dest: /etc/nginx/internal_secure.conf
+
+    - src: oneserver/templates/cloudflare.pem
+      dest: {{ config.nginx.tls_cert_path }}
+
+    - src: oneserver/templates/cloudflare.key
+      dest: {{ config.nginx.tls_cert_key_path }}
+
+- name: OneServer, Restarting nginx
+  sudo: true
+  service: name=nginx state=restarted
