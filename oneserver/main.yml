@@ -17,7 +17,9 @@
 ---
 - name: OneServer, remove nginx default
   become: true
-  file: path=/etc/nginx/sites-enabled/default, state=absent
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
 
 - name: OneServer, nginx configuration files
   become: true
