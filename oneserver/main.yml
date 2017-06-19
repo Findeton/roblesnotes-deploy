@@ -16,14 +16,14 @@
 
 ---
 - name: OneServer, remove nginx default
-  sudo: true
+  become: true
   file: path=/etc/nginx/sites-enabled/default, state=absent
 
 - name: OneServer, nginx configuration files
-  sudo: true
+  become: true
   template:
-    src: {{ item.src }}
-    dest: {{ item.dest }}
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
     owner: root
     mode: 0644
   with_items:
@@ -42,15 +42,12 @@
     - src: oneserver/templates/secure.conf
       dest: /etc/nginx/secure.conf
 
-    - src: oneserver/templates/internal_secure.conf
-      dest: /etc/nginx/internal_secure.conf
-
     - src: oneserver/templates/cloudflare.pem
-      dest: {{ config.nginx.tls_cert_path }}
+      dest: "{{ config.nginx.tls_cert_path }}"
 
     - src: oneserver/templates/cloudflare.key
-      dest: {{ config.nginx.tls_cert_key_path }}
+      dest: "{{ config.nginx.tls_cert_key_path }}"
 
 - name: OneServer, Restarting nginx
-  sudo: true
+  become: true
   service: name=nginx state=restarted

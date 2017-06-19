@@ -28,9 +28,9 @@
     - supervisor
 
 - name: Packages, Generate UTF-8 locales
-  sudo: true
+  become: true
   shell: locale-gen en_US en_US.UTF-8 es_ES es_ES.UTF-8
 
 - name: Packages, Configure locales
-  sudo: true
-  shell: dpkg-reconfigure locales
+  become: true
+  shell: dpkg-reconfigure --frontend=noninteractive locales
