@@ -22,7 +22,7 @@
     repo: "{{ repos.roblesnotes.repo }}"
     version: "{{ repos.roblesnotes.version }}"
     dest: "{{ config.roblesnotes.path }}"
-    force: {{ repos.roblesnotes.force }}
+    force: "{{ repos.roblesnotes.force }}"
 
 - name: Roblesnotes, Git clone roblesnotes theme
   become: true
@@ -31,4 +31,4 @@
     repo: "{{ repos.roblesnotes_theme.repo }}"
     version: "{{ repos.roblesnotes_theme.version }}"
     dest: "{{ config.roblesnotes.theme_path }}"
-    force: {{ repos.roblesnotes_theme.force }}
+    force: "{{ repos.roblesnotes_theme.force }}"

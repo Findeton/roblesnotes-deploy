@@ -18,10 +18,7 @@
 - name: Robles, templates
   become: true
   template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
+    src: roblesnotes/templates/deploy.sh
+    dest: /root/deploy.sh
     owner: root
     mode: 0755
-  with_items:
-    - src: roblesnotes/templates/deploy.sh
-      dest: /root/deploy.sh

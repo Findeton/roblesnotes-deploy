@@ -32,7 +32,7 @@
     url: "{{ repos.hugo.repo }}"
     sha256sum: "{{ repos.hugo.sha256sum }}"
     dest: "/tmp/{{ repos.hugo.pkg }}"
-    validate_certs: {{ not config.has_https_proxy }}
+    validate_certs: "{{ not config.has_https_proxy }}"
 
 - name: Roblesnotes, Install hugo
   become: true
