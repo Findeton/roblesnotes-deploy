@@ -28,6 +28,15 @@ params:
 config:
   domain: roblesnotes.com
 
+  # set to true if the environment where you are going to deploy the machine
+  # uses an https_proxy, which is not transparently supported in ansible.
+  has_https_proxy: false
+
+  roblesnotes:
+    user: hugo
+    path: /home/hugo/roblesnotes
+    theme_path: /home/hugo/roblesnotes/themes/hugo-goa
+
   nginx:
     # The folder where the roblesnotes webpage will be generated
     # and the folder nginx will serve
@@ -94,3 +103,4 @@ config:
 
     tls_cert_key: |
                
+

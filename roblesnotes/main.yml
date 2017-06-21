@@ -14,4 +14,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
---- 
+---
+- include: packages.yml
+- include: user.yml
+- include: repos.yml
+- include: templates.yml
+- include: deploy.yml

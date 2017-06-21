@@ -15,19 +15,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ---
-repos:
-    roblesnotes:
-        repo: https://github.com/Findeton/roblesnotes.git
-        version: master
-        force: yes
+- name: Roblesnotes, Git clone roblesnotes
+  become: true
+  become_user: "{{ config.roblesnotes.user }}"
+  git:
+    repo: "{{ repos.roblesnotes.repo }}"
+    version: "{{ repos.roblesnotes.version }}"
+    dest: "{{ config.roblesnotes.path }}"
+    force: {{ repos.roblesnotes.force }}
 
-    roblesnotes_theme:
-        repo: https://github.com/shenoybr/hugo-goa.git
-        version: master
-        force: yes
-
-    hugo:
-        repo: https://github.com/gohugoio/hugo/releases/download/v0.23/hugo_0.23_Linux-64bit.deb
-        pkg: hugo_0.23_Linux-64bit.deb
-        sha256sum: 78c4ac3cbbf30810d91c6d27cb40f07c12a6164123df62c3d91113f0758a3ad8
-        force: yes
+- name: Roblesnotes, Git clone roblesnotes theme
+  become: true
+  become_user: "{{ config.roblesnotes.user }}"
+  git:
+    repo: "{{ repos.roblesnotes_theme.repo }}"
+    version: "{{ repos.roblesnotes_theme.version }}"
+    dest: "{{ config.roblesnotes.theme_path }}"
+    force: {{ repos.roblesnotes_theme.force }}
