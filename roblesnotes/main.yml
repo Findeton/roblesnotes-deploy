@@ -14,13 +14,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
----
-- hosts: all
-
-  tasks:
-    - include_vars: config.yml
-    - include_vars: repos.yml
-
-    - include: packages.yml
-    - include: oneserver/main.yml
-    - include: roblesnotes/main.yml
+--- 

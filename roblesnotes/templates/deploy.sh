@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This file is part of roblesnotes-deploy
 # Copyright (C) 2017  Felix Robles Elvira <felrobelv@gmail.com>
 
@@ -14,13 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
----
-- hosts: all
+# stop on first error
+# well, not exactly: http://mywiki.wooledge.org/BashFAQ/105
+set -e
 
-  tasks:
-    - include_vars: config.yml
-    - include_vars: repos.yml
+#echo on
+set -x
 
-    - include: packages.yml
-    - include: oneserver/main.yml
-    - include: roblesnotes/main.yml
+rm -Rf {{ config.nginx.public_folder }}

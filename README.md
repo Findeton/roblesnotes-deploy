@@ -10,4 +10,4 @@ deploy script for roblesnotes webpage
     sudo apt-get install ansible -y
     git clone https://github.com/Findeton/roblesnotes-deploy.git
     cd roblesnotes-deploy
-    time sudo ansible-playbook -i inventory playbook.yml
+    time sudo ansible-playbook -i inventory playbook.yml -vvvv
