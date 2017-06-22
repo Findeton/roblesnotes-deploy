@@ -1,0 +1,78 @@
+# This file is part of roblesnotes-deploy
+# Copyright (C) 2017  Felix Robles Elvira <felrobelv@gmail.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+---
+- name: Roblesnotes, Installing build-essential
+  become: true
+  action: apt pkg={{item}} state=installed force=yes
+  with_items:
+    - build-essential
+
+- name: Roblesnotes, Git clone webhook
+  become: true
+  become_user: "{{ config.roblesnotes.user }}"
+  git:
+    repo: "{{ repos.webhook.repo }}"
+    version: "{{ repos.webhook.version }}"
+    dest: "/home/{{ config.roblesnotes.user }}/webhook"
+    force: "{{ repos.roblesnotes.force }}"
+
+- name: Roblesnotes, Configure webhook Makefile 1/2
+  become: true
+  become_user: "{{ config.roblesnotes.user }}"
+  replace:
+    path: "/home/{{ config.roblesnotes.user }}/webhook/Makefile"
+    regexp: "OS = darwin freebsd linux openbsd windows"
+    replace: "OS = linux"
+    backup: no
+
+- name: Roblesnotes, Configure webhook Makefile 1/2
+  become: true
+  become_user: "{{ config.roblesnotes.user }}"
+  replace:
+    path: "/home/{{ config.roblesnotes.user }}/webhook/Makefile"
+    regexp: "ARCHS = 386 arm amd64 arm64"
+    replace: "ARCHS = amd64"
+    backup: no
+
+- name: Roblesnotes, Webhook build
+  become: true
+  become_user: "{{ config.roblesnotes.user }}"
+  shell: "cd /home/{{ config.roblesnotes.user }}/webhook && make"
+
+- name: Roblesnotes, Webhook templates
+  become: true
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    mode: 0755
+  with_items:
+    - src: roblesnotes/templates/hooks.json
+      dest: /root/hooks.json
+      mode: 0640
+
+    - src: roblesnotes/templates/webhook_deploy.sh
+      dest: /root/webhook_deploy.sh
+      mode: 0755
+
+- name: Roblesnotes, create webhook log folder
+  become: true
+  file:
+    path: /var/log/webhook
+    owner: root
+    group: root
+    state: directory

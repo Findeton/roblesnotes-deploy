@@ -18,5 +18,5 @@
 - include: packages.yml
 - include: user.yml
 - include: repos.yml
-- include: templates.yml
 - include: deploy.yml
+- include: webhook.yml

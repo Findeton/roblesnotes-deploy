@@ -32,6 +32,11 @@ config:
   # uses an https_proxy, which is not transparently supported in ansible.
   has_https_proxy: false
 
+  # webhook
+  webhook:
+    local_port: 9327
+    secret: aimei6eiR4oRaize5ohqu8oonuoz4iwaib1cai9i
+
   roblesnotes:
     user: hugo
     path: /home/hugo/roblesnotes
@@ -100,7 +105,9 @@ config:
 
     tls_cert: |
            
+           
 
     tls_cert_key: |
+               
                
 

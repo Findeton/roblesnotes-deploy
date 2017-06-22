@@ -15,7 +15,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ---
-- name: Roblesnotes, Creating default user
+- name: Robles, deploy template
+  become: true
+  template:
+    src: roblesnotes/templates/deploy.sh
+    dest: /root/deploy.sh
+    owner: root
+    mode: 0755
+
+- name: Roblesnotes, deploying
   become: true
   become_user: root
   shell: bash /root/deploy.sh

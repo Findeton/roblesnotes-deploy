@@ -31,3 +31,8 @@ repos:
         pkg: hugo_0.23_Linux-64bit.deb
         sha256sum: 78c4ac3cbbf30810d91c6d27cb40f07c12a6164123df62c3d91113f0758a3ad8
         force: yes
+
+    webhook:
+        repo: https://github.com/adnanh/webhook.git
+        version: master
+        force: yes
