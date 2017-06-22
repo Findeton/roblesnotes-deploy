@@ -5,3 +5,5 @@
 set -e
 
 echo deploying... $(date) >> /var/log/webhook/log.txt
+time /root/webhook_deploy.sh>> /var/log/webhook/log.txt
+echo deploy finished $(date) >> /var/log/webhook/log.txt

@@ -23,6 +23,7 @@ set -e
 #echo on
 set -x
 
+cd {{ config.roblesnotes.path }}  && sudo -u {{ config.roblesnotes.user }} git pull
 cd {{ config.roblesnotes.path }}  && sudo -u {{ config.roblesnotes.user }} hugo -v
 rm -Rf {{ config.nginx.public_folder }}/*
 cd {{ config.roblesnotes.path }}/public && cp -R . {{ config.nginx.public_folder }}
