@@ -48,10 +48,27 @@
     replace: "ARCHS = amd64"
     backup: no
 
+- name: Roblesnotes, create gopath
+  become: true
+  file:
+    path: "/home/{{ config.roblesnotes.user }}/go"
+    owner: "{{ config.roblesnotes.user }}"
+    group: "{{ config.roblesnotes.user }}"
+    state: directory
+
+- name: Roblesnotes, export gopath on bashrc
+  become: true
+  lineinfile:
+    path: "/home/{{ config.roblesnotes.user }}/.bashrc"
+    line: "export GOPATH=/home/{{ config.roblesnotes.user }}/go"
+    insertafter: "EOF"
+
 - name: Roblesnotes, Webhook build
   become: true
   become_user: "{{ config.roblesnotes.user }}"
-  shell: "cd /home/{{ config.roblesnotes.user }}/webhook && make"
+  shell: "export GOPATH=/home/{{ config.roblesnotes.user }}/go && cd /home/{{ config.roblesnotes.user }}/webhook && make"
+  args:
+    executable: /bin/bash
 
 - name: Roblesnotes, Webhook templates
   become: true
