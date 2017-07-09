@@ -53,3 +53,5 @@
 - name: OneServer, Restarting nginx
   become: true
   service: name=nginx state=restarted
+
+- include: fail2ban.yml
