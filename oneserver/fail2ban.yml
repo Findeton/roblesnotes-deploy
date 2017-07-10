@@ -37,10 +37,10 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: root
-    mode: "{{ item.mode }}"
+    mode: {{ item.mode }}
   with_items:
-    - src: oneserver/templates/fail2ban.local
-      dest: /etc/fail2ban/fail2ban.local
+    - src: oneserver/templates/jail.local
+      dest: /etc/fail2ban/jail.local
       mode: 0644
 
     - src: oneserver/templates/iptables.sh
