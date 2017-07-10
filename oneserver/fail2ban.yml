@@ -24,3 +24,34 @@
   action: apt pkg={{item}} state=installed force=yes
   with_items:
     - fail2ban
+    - sendmail
+    - iptables-persistent
+
+- name: OneServer, Stop fail2ban
+  become: true
+  service: name=fail2ban state=stopped
+
+- name: OneServer, fail2ban configuration files
+  become: true
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    mode: "{{ item.mode }}"
+  with_items:
+    - src: oneserver/templates/fail2ban.local
+      dest: /etc/fail2ban/fail2ban.local
+      mode: 0644
+
+    - src: oneserver/templates/iptables.sh
+      dest: /etc/fail2ban/iptables.sh
+      mode: 0755
+
+- name: OneServer, fail2ban configuration files
+  become: true
+  become_user: root
+  shell: bash /etc/fail2ban/iptables.sh
+
+- name: OneServer, Start fail2ban
+  become: true
+  service: name=fail2ban state=started
