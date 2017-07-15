@@ -26,4 +26,4 @@ set -x
 cd {{ config.fiatcoin.path }}  && sudo -u {{ config.fiatcoin.user }} git pull
 cd {{ config.fiatcoin.path }}  && sudo -u {{ config.fiatcoin.user }} npm run build
 rm -Rf {{ config.fiatcoin.public_folder }}/*
-cd {{ config.fiatcoin.path }}/public && cp -R . {{ config.fiatcoin.public_folder }}
+cd {{ config.fiatcoin.path }}/dist && cp -R . {{ config.fiatcoin.public_folder }}
