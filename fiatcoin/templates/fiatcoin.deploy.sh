@@ -23,7 +23,7 @@ set -e
 #echo on
 set -x
 
-cd {{ config.roblesnotes.path }}  && sudo -u {{ config.roblesnotes.user }} git pull
-cd {{ config.roblesnotes.path }}  && sudo -u {{ config.roblesnotes.user }} hugo -v
-rm -Rf {{ config.nginx.public_folder }}/*
-cd {{ config.roblesnotes.path }}/public && cp -R . {{ config.nginx.public_folder }}
+cd {{ config.fiatcoin.path }}  && sudo -u {{ config.fiatcoin.user }} git pull
+cd {{ config.fiatcoin.path }}  && sudo -u {{ config.fiatcoin.user }} npm run build
+rm -Rf {{ config.fiatcoin.public_folder }}/*
+cd {{ config.fiatcoin.path }}/public && cp -R . {{ config.fiatcoin.public_folder }}

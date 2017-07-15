@@ -15,15 +15,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ---
-- name: Robles, deploy template
+- name: Roblesnotes, deploy template
   become: true
   template:
-    src: roblesnotes/templates/deploy.sh
-    dest: /root/deploy.sh
+    src: roblesnotes/templates/roblesnotes.deploy.sh
+    dest: /root/roblesnotes.deploy.sh
     owner: root
     mode: 0755
 
 - name: Roblesnotes, deploying
   become: true
   become_user: root
-  shell: bash /root/deploy.sh
+  shell: bash /root/roblesnotes.deploy.sh

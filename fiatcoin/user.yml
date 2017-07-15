@@ -15,7 +15,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ---
-- include: packages.yml
-- include: user.yml
-- include: repos.yml
-- include: deploy.yml
+- name: Fiatcoin, Creating default user
+  become: true
+  user:
+    name: "{{ config.fiatcoin.user }}"
+    shell: /bin/bash

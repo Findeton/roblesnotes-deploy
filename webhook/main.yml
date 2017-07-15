@@ -78,11 +78,11 @@
     owner: root
     mode: "{{ item.mode }}"
   with_items:
-    - src: roblesnotes/templates/hooks.json
+    - src: webhook/templates/hooks.json
       dest: /root/hooks.json
       mode: "0640"
 
-    - src: roblesnotes/templates/webhook_deploy.sh
+    - src: webhook/templates/webhook_deploy.sh
       dest: /root/webhook_deploy.sh
       mode: "0755"
 

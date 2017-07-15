@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This file is part of roblesnotes-deploy
 # Copyright (C) 2017  Felix Robles Elvira <felrobelv@gmail.com>
 
@@ -14,8 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
----
-- include: packages.yml
-- include: user.yml
-- include: repos.yml
-- include: deploy.yml
+# stop on first error
+# well, not exactly: http://mywiki.wooledge.org/BashFAQ/105
+set -e
+
+#echo on
+set -x
+
+cd {{ config.roblesnotes.path }}  && sudo -u {{ config.roblesnotes.user }} git pull
+cd {{ config.roblesnotes.path }}  && sudo -u {{ config.roblesnotes.user }} hugo -v
+rm -Rf {{ config.roblesnotes.public_folder }}/*
+cd {{ config.roblesnotes.path }}/public && cp -R . {{ config.roblesnotes.public_folder }}

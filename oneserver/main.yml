@@ -41,14 +41,23 @@
     - src: oneserver/templates/base_secure.conf
       dest: /etc/nginx/base_secure.conf
 
-    - src: oneserver/templates/secure.conf
-      dest: /etc/nginx/secure.conf
+    - src: oneserver/templates/roblesnotes.secure.conf
+      dest: /etc/nginx/roblesnotes.secure.conf
 
-    - src: oneserver/templates/cloudflare.pem
-      dest: "{{ config.nginx.tls_cert_path }}"
+    - src: oneserver/templates/roblesnotes.cloudflare.pem
+      dest: "{{ config.roblesnotes.tls_cert_path }}"
 
-    - src: oneserver/templates/cloudflare.key
-      dest: "{{ config.nginx.tls_cert_key_path }}"
+    - src: oneserver/templates/roblesnotes.cloudflare.key
+      dest: "{{ config.roblesnotes.tls_cert_key_path }}"
+
+    - src: oneserver/templates/fiatcoin.secure.conf
+      dest: /etc/nginx/fiatcoin.secure.conf
+
+    - src: oneserver/templates/fiatcoin.cloudflare.pem
+      dest: "{{ config.fiatcoin.tls_cert_path }}"
+
+    - src: oneserver/templates/fiatcoin.cloudflare.key
+      dest: "{{ config.fiatcoin.tls_cert_key_path }}"
 
 - name: OneServer, Restarting nginx
   become: true

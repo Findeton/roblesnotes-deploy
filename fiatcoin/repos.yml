@@ -15,7 +15,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ---
-- include: packages.yml
-- include: user.yml
-- include: repos.yml
-- include: deploy.yml
+- name: Fiatcoin, Git clone roblesnotes
+  become: true
+  become_user: "{{ config.fiatcoin.user }}"
+  git:
+    repo: "{{ repos.fiatcoin.repo }}"
+    version: "{{ repos.fiatcoin.version }}"
+    dest: "{{ config.fiatcoin.path }}"
+    force: "{{ repos.fiatcoin.force }}"

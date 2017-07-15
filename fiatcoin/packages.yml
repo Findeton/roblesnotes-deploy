@@ -15,7 +15,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ---
-- include: packages.yml
-- include: user.yml
-- include: repos.yml
-- include: deploy.yml
+- name: Fiatcoin, Updating packages
+  become: true
+  action: apt update_cache=yes
+
+- name: Fiatcoin, Installing packages
+  become: true
+  action: apt pkg={{item}} state=installed force=yes
+  with_items:
+    - npm
