@@ -34,7 +34,7 @@ config:
   # webhook
   webhook:
     local_port: 9327
-    secret: Aeyak8poojo5haruepeitahpaikouM7Uo9jae6hu
+    secret: ''
 
   roblesnotes:
     user: hugo
