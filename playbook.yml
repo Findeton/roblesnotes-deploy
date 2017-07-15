@@ -22,7 +22,7 @@
     - include_vars: repos.yml
 
     - include: packages.yml
-    - include: oneserver/main.yml
     - include: roblesnotes/main.yml
     - include: fiatcoin/main.yml
+    - include: oneserver/main.yml
     - include: webhook/main.yml

@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ---
-- name: Fiatcoin, Git clone roblesnotes
+- name: Fiatcoin, Git clone fiatcoin-net
   become: true
   become_user: "{{ config.fiatcoin.user }}"
   git:

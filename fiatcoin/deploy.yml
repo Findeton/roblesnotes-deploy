@@ -19,7 +19,7 @@
   become: true
   shell: npm install
   args:
-    chdir: {{ config.fiatcoin.path }}
+    chdir: "{{ config.fiatcoin.path }}"
 
 - name: Fiatcoin, deploy template
   become: true

@@ -24,3 +24,11 @@
   action: apt pkg={{item}} state=installed force=yes
   with_items:
     - npm
+    - nodejs
+
+- name: Fiatcoin, symlink from nodejs to node
+  become: true
+  file:
+    src: /usr/bin/nodejs
+    dest: /usr/bin/node
+    state: link
