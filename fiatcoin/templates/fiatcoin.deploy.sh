@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This file is part of roblesnotes-deploy
 # Copyright (C) 2017  Felix Robles Elvira <felrobelv@gmail.com>
 
@@ -14,23 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
----
-- name: Packages, Updating packages
-  become: true
-  action: apt update_cache=yes
+# stop on first error
+# well, not exactly: http://mywiki.wooledge.org/BashFAQ/105
+set -e
 
-- name: Packages, Installing packages
-  become: true
-  action: apt pkg={{item}} state=installed force=yes
-  with_items:
-    - git
-    - nginx
-    - supervisor
+#echo on
+set -x
 
-- name: Packages, Generate UTF-8 locales
-  become: true
-  shell: locale-gen en_US en_US.UTF-8 es_ES es_ES.UTF-8
-
-- name: Packages, Configure locales
-  become: true
-  shell: dpkg-reconfigure --frontend=noninteractive locales
+cd {{ config.fiatcoin.path }}  && sudo -u {{ config.fiatcoin.user }} git pull
+cd {{ config.fiatcoin.path }}  && sudo -u {{ config.fiatcoin.user }} npm run build
+rm -Rf {{ config.fiatcoin.public_folder }}/*
+cd {{ config.fiatcoin.path }}/dist && cp -R . {{ config.fiatcoin.public_folder }}

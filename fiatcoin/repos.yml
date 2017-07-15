@@ -15,22 +15,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ---
-- name: Packages, Updating packages
+- name: Fiatcoin, Git clone fiatcoin-net
   become: true
-  action: apt update_cache=yes
-
-- name: Packages, Installing packages
-  become: true
-  action: apt pkg={{item}} state=installed force=yes
-  with_items:
-    - git
-    - nginx
-    - supervisor
-
-- name: Packages, Generate UTF-8 locales
-  become: true
-  shell: locale-gen en_US en_US.UTF-8 es_ES es_ES.UTF-8
-
-- name: Packages, Configure locales
-  become: true
-  shell: dpkg-reconfigure --frontend=noninteractive locales
+  become_user: "{{ config.fiatcoin.user }}"
+  git:
+    repo: "{{ repos.fiatcoin.repo }}"
+    version: "{{ repos.fiatcoin.version }}"
+    dest: "{{ config.fiatcoin.path }}"
+    force: "{{ repos.fiatcoin.force }}"

@@ -26,7 +26,6 @@ params:
 
 # global configuration
 config:
-  domain: roblesnotes.com
 
   # set to true if the environment where you are going to deploy the machine
   # uses an https_proxy, which is not transparently supported in ansible.
@@ -35,17 +34,90 @@ config:
   # webhook
   webhook:
     local_port: 9327
-    secret: ""
+    secret: ''
 
   roblesnotes:
     user: hugo
     path: /home/hugo/roblesnotes
     theme_path: /home/hugo/roblesnotes/themes/hugo-goa
-
-  nginx:
+    domain: roblesnotes.com
     # The folder where the roblesnotes webpage will be generated
     # and the folder nginx will serve
-    public_folder: /var/www/html
+    public_folder: /var/www/html/roblesnotes
+
+    # Path of the TLS PEM public certificate.
+    #
+    # Requirements:
+    # - It must be a file with -rw-r--r-- (644) file permissions owned by
+    #   agoraelections:users.
+    # - Must be a PEM certificate encrypted with the key in the path specified
+    #   in config.http.tls_cert_key_path.
+    #
+    # By default it is '/etc/nginx/cloudflare.pem', but you can change it
+    # to any other file you want
+    tls_cert_path: /etc/nginx/roblesnotes.cloudflare.pem
+
+    # Path of the TLS PEM certificate private key.
+    #
+    # Requirements:
+    # - It must be a file with -rw-r--r-- (644) file permissions owned by
+    #   agoraelections:users.
+    # - Must be the private key of the public certificate of
+    #   config.http.tls_cert_path.
+    #
+    # By default it is '/etc/nginx/cloudflare.key', but you can
+    # change it to any other file you want
+    tls_cert_key_path: /etc/nginx/roblesnotes.cloudflare.key
+
+    tls_cert: |
+           
+           
+
+    tls_cert_key: |
+               
+               
+
+  fiatcoin:
+    user: fiatcoin
+    path: /home/fiatcoin/fiatcoin-net
+    domain: fiatcoin.net
+    # The folder where the roblesnotes webpage will be generated
+    # and the folder nginx will serve
+    public_folder: /var/www/html/fiatcoin
+
+    # Path of the TLS PEM public certificate.
+    #
+    # Requirements:
+    # - It must be a file with -rw-r--r-- (644) file permissions owned by
+    #   agoraelections:users.
+    # - Must be a PEM certificate encrypted with the key in the path specified
+    #   in config.http.tls_cert_key_path.
+    #
+    # By default it is '/etc/nginx/cloudflare.pem', but you can change it
+    # to any other file you want
+    tls_cert_path: /etc/nginx/fiatcoin.cloudflare.pem
+
+    # Path of the TLS PEM certificate private key.
+    #
+    # Requirements:
+    # - It must be a file with -rw-r--r-- (644) file permissions owned by
+    #   agoraelections:users.
+    # - Must be the private key of the public certificate of
+    #   config.http.tls_cert_path.
+    #
+    # By default it is '/etc/nginx/cloudflare.key', but you can
+    # change it to any other file you want
+    tls_cert_key_path: /etc/nginx/fiatcoin.cloudflare.key
+
+    tls_cert: |
+           
+           
+
+    tls_cert_key: |
+               
+               
+
+  nginx:
 
     # Log level for error log in nginx.
     #
@@ -77,37 +149,4 @@ config:
     # enable/disable nginx reverse proxy cache for everything related to agora
     # web server
     reverse_proxy_cache: true
-
-
-    # Path of the TLS PEM public certificate.
-    #
-    # Requirements:
-    # - It must be a file with -rw-r--r-- (644) file permissions owned by
-    #   agoraelections:users.
-    # - Must be a PEM certificate encrypted with the key in the path specified
-    #   in config.http.tls_cert_key_path.
-    #
-    # By default it is '/etc/nginx/cloudflare.pem', but you can change it
-    # to any other file you want
-    tls_cert_path: /etc/nginx/cloudflare.pem
-
-    # Path of the TLS PEM certificate private key.
-    #
-    # Requirements:
-    # - It must be a file with -rw-r--r-- (644) file permissions owned by
-    #   agoraelections:users.
-    # - Must be the private key of the public certificate of
-    #   config.http.tls_cert_path.
-    #
-    # By default it is '/etc/nginx/cloudflare.key', but you can
-    # change it to any other file you want
-    tls_cert_key_path: /etc/nginx/cloudflare.key
-
-    tls_cert: |
-           
-           
-
-    tls_cert_key: |
-               
-               
 

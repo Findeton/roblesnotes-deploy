@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # This file is part of roblesnotes-deploy
 # Copyright (C) 2017  Felix Robles Elvira <felrobelv@gmail.com>
 
@@ -16,14 +14,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# stop on first error
-# well, not exactly: http://mywiki.wooledge.org/BashFAQ/105
-set -e
+---
+- name: Fiatcoin, deploying
+  become: true
+  shell: npm install
+  args:
+    chdir: "{{ config.fiatcoin.path }}"
 
-#echo on
-set -x
+- name: Fiatcoin, deploy template
+  become: true
+  template:
+    src: fiatcoin/templates/fiatcoin.deploy.sh
+    dest: /root/fiatcoin.deploy.sh
+    owner: root
+    mode: 0755
 
-cd {{ config.roblesnotes.path }}  && sudo -u {{ config.roblesnotes.user }} git pull
-cd {{ config.roblesnotes.path }}  && sudo -u {{ config.roblesnotes.user }} hugo -v
-rm -Rf {{ config.nginx.public_folder }}/*
-cd {{ config.roblesnotes.path }}/public && cp -R . {{ config.nginx.public_folder }}
+- name: Fiatcoin, deploying
+  become: true
+  become_user: root
+  shell: bash /root/fiatcoin.deploy.sh

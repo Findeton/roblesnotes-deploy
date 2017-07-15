@@ -36,3 +36,8 @@ repos:
         repo: https://github.com/adnanh/webhook.git
         version: master
         force: yes
+
+    fiatcoin:
+        repo: https://github.com/Findeton/fiatcoin-net.git
+        version: master
+        force: yes

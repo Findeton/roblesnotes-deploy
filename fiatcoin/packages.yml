@@ -15,22 +15,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ---
-- name: Packages, Updating packages
+- name: Fiatcoin, Updating packages
   become: true
   action: apt update_cache=yes
 
-- name: Packages, Installing packages
+- name: Fiatcoin, Installing packages
   become: true
   action: apt pkg={{item}} state=installed force=yes
   with_items:
-    - git
-    - nginx
-    - supervisor
+    - npm
+    - nodejs
 
-- name: Packages, Generate UTF-8 locales
+- name: Fiatcoin, symlink from nodejs to node
   become: true
-  shell: locale-gen en_US en_US.UTF-8 es_ES es_ES.UTF-8
-
-- name: Packages, Configure locales
-  become: true
-  shell: dpkg-reconfigure --frontend=noninteractive locales
+  file:
+    src: /usr/bin/nodejs
+    dest: /usr/bin/node
+    state: link
